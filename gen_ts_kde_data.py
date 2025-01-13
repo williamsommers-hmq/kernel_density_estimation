@@ -36,6 +36,7 @@ pd.set_option('display.width', 100)      # Set the display width
 time_span = 100         # number of seconds
 Amplitude = 28
 Noise_scale = Amplitude / 2.1
+Noise2_scale = Noise_scale * 0.14
 Frequency = 60
 Nyquist = Frequency * 2
 Gen_scale = Nyquist * 16
@@ -47,6 +48,9 @@ time = np.arange(0, time_span, 1/Gen_scale)
 
 N = np.random.uniform(low=-Noise_scale, high=Noise_scale,
                       size=(numsamples,))  # noise
+
+N2 = np.random.uniform(low= -Noise2_scale, high=Noise_scale,
+                       size=(numsamples,))
 
 # A = np.random.weibull(10., numsamples)  # amperage
 
@@ -90,19 +94,20 @@ Min = np.full(numsamples, -Amplitude)
 dfC = pd.DataFrame()
 dfC['time'] = time
 dfC['N'] = N
+dfC['N2'] = N2
 # dfC['A'] = A
 dfC['S0'] = S0
 dfC['S1'] = S1
-dfC['signal2'] = S0 * S2 + N   # dampened noisy signal
+dfC['signal2'] = S0 * S2 + N + N2  # dampened noisy signal
 
-dfC['signal3'] = S3 + N        # inject missing data at 3000:4000
+dfC['signal3'] = S3 + N  + N2      # inject missing data at 3000:4000
 dfC.loc[3030:3070, 'signal3'] = 0
 dfC.loc[3100:3140, 'signal3'] = 0
 dfC.loc[3520:3700, 'signal3'] = 0
 
-dfC['signal4'] = S4 + N        #
-dfC['signal5'] = S5 + N        #
-dfC['signal6'] = S6 + N        #
+dfC['signal4'] = S4 + N + N2       #
+dfC['signal5'] = S5 + N + N2       #
+dfC['signal6'] = S6 + N + N2       #
 dfC['FI1'] = FI1
 dfC['FI2'] = FI2
 dfC['Min'] = Min
