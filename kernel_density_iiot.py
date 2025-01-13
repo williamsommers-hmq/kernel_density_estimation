@@ -118,6 +118,9 @@ signal_plot(df, 'Motor Current Signal (degraded signal multi-spectrum)',
 signal_multiplot(df, 'Motor Current Signal (degraded signal multi-spectrum)', 
             'time', 'S4', samp_start, samp_end, 'S4_0', 'S4_1', 'S4_2', 'S4_3')
 
+histogram_plot(df, 'Histogram of Primary Noise', 'N', samp_start, samp_end)
+histogram_plot(df, 'Histogram of Secondary Noise', 'N2', samp_start, samp_end)
+
 histogram_plot(df, 'Histogram of degraded signal with multi-spectrum noise',
                'signal4', samp_start, samp_end)
 
